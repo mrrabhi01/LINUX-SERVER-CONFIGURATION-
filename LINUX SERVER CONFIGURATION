@@ -1,0 +1,63 @@
+ 1. UFW (Firewall) Setup Commands*
+
+bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install ufw -y
+sudo ufw enable
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow 3306/tcp
+sudo ufw allow ftp
+sudo ufw status verbose
+ip a
+
+
+
+
+ 2. Apache Web Server Commands*
+
+bash
+sudo apt install apache2 -y
+sudo systemctl status apache2
+sudo systemctl enable apache2
+sudo nano /var/www/html/index.html
+sudo systemctl restart apache2
+curl http://127.0.0.1
+
+
+ 3. MySQL Database Server Commands*
+
+bash
+sudo apt install mysql-server -y
+sudo mysql_secure_installation
+sudo mysql -u root -p
+
+
+Inside MySQL:
+
+sql
+CREATE DATABASE project_db;
+CREATE USER 'project_user'@'localhost' IDENTIFIED BY 'secure_password';
+GRANT ALL PRIVILEGES ON project_db.* TO 'project_user'@'localhost';
+FLUSH PRIVILEGES;
+
+
+Test login:
+
+bash
+mysql -u project_user -p
+
+
+4. VSFTPD (FTP Server) Commands*
+
+bash
+sudo apt install vsftpd -y
+sudo nano /etc/vsftpd.conf
+sudo adduser ftp_user
+sudo chown -R ftp_user:ftp_user /home/ftp_user
+mkdir /home/ftp_user/ftp_files
+sudo chmod a-w /home/ftp_user
+sudo chown -R ftp_user:ftp_user /home/ftp_user/ftp_files
+sudo systemctl restart vsftpd
+sudo systemctl status vsftpd
+
